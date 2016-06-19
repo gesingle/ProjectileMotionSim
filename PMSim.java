@@ -23,7 +23,7 @@ public class PMSim extends JFrame implements ActionListener{
 	
 	public PMSim() {
 		
-		setTitle("RocketSim");
+		setTitle("Projectile Motion Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setResizable(true);
