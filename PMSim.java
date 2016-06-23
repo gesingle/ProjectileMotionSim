@@ -25,6 +25,9 @@ public class PMSim extends JFrame implements ActionListener{
 	private JButton run;
 	private PMSimDraw drawSim;
 	
+	/**
+	 * Constructor
+	 */
 	public PMSim() {
 		
 		// JFrame setup
