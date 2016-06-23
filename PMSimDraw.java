@@ -16,8 +16,6 @@ public class PMSimDraw extends JPanel {
 	private double angle;
 	private double xvel;
 	private double yvel;
-	private double x;
-	private double y;
 	private double time;
 	
 	/**
@@ -112,8 +110,8 @@ public class PMSimDraw extends JPanel {
 		angle = a;
 		velocity = v;
 		// compute x and y velocities
-		xvel = velocity * Math.cos(Math.toRadians(angle));
-		yvel = velocity * Math.sin(Math.toRadians(angle));
+		xvel = velocity * Math.cos(angle);
+		yvel = velocity * Math.sin(angle);
 		// compute flight time
 		time = -yvel / (0.5 * -9.8);	
 	}
@@ -129,7 +127,7 @@ public class PMSimDraw extends JPanel {
 	 * @return Max altitude reached
 	 */
 	public double getAltitude(){
-		return (yvel * time) / 2;
+		return (yvel * yvel)* Math.pow(Math.sin(angle), 2) / (2 * 9.8);
 	}
 	
 	/**
