@@ -3,9 +3,13 @@ package projectileMotionSim;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
+/**
+ * GUI framework and run controller
+ *
+ * @author Garrett Singletary
+*/
 public class PMSim extends JFrame implements ActionListener{
 
 	private JPanel drawpanel;
@@ -23,6 +27,7 @@ public class PMSim extends JFrame implements ActionListener{
 	
 	public PMSim() {
 		
+		// JFrame setup
 		setTitle("Projectile Motion Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -54,7 +59,7 @@ public class PMSim extends JFrame implements ActionListener{
 		flightinfo.add(flighttime);
 		add(flightinfo, BorderLayout.SOUTH);
 
-		
+		// add simulation window
 		drawSim = new PMSimDraw();
 		add(drawSim, BorderLayout.CENTER);
 		
@@ -68,11 +73,13 @@ public class PMSim extends JFrame implements ActionListener{
 		Object b = e.getSource();
 		
 		if(b == run){
+			// pull velocity and angle info from user input
 			String v = velocity.getText();
 			int vel = Integer.parseInt(v);
 			String a = angle.getText();
 			int ang = Integer.parseInt(a);
 			
+			// pass flight parameters to the sim and update alt, dist, and time fields
 			drawSim.setFlightParameters(vel, ang);
 			maxalt.setText("Max Altitude (m): " + (int) drawSim.getAltitude());
 			maxdist.setText("Distance Traveled (m): " + (int) drawSim.getDist());
