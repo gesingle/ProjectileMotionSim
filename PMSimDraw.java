@@ -3,6 +3,13 @@ package projectileMotionSim;
 import java.awt.Graphics;
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * Class handles drawing the flight data in the sim window
+ * 
+ * @author Garrett Singletary
+ */
+  
 public class PMSimDraw extends JPanel {
 
 	private int velocity;
@@ -13,21 +20,31 @@ public class PMSimDraw extends JPanel {
 	private double y;
 	private double time;
 	
+	/**
+	 * Constructor
+	 */
 	public PMSimDraw(){
 				
 		setPreferredSize(new Dimension(550, 550));
 		setBackground(Color.WHITE);
 	}
 	
+	/**
+	 * Paint override
+	 * 
+	 * @param g Graphics
+	 */
 	public void paintComponent(Graphics g){
 		
 		super.paintComponent(g);
+		// sim window outline
 		g.drawRect(50, 50, 450, 450);
 		
 		int xcor = 50;
 		int ycor = 500;
 		int tickcounter = 0;
 		
+		// x axis reference marks every 50m
 		for(int i = 0; i < 10; i++){
 			g.drawLine(xcor, 500, xcor, 505);
 			if(i == 0){
@@ -45,6 +62,7 @@ public class PMSimDraw extends JPanel {
 		
 		tickcounter = 0;
 		
+		// y axis reference marks every 50m
 		for(int i = 0; i < 10; i++){
 			g.drawLine(45, ycor, 50, ycor);
 			if(i == 0){
@@ -60,14 +78,21 @@ public class PMSimDraw extends JPanel {
 			tickcounter += 50;
 		}
 		
+		// gernerate flight path plot
 		rocketFlight(g);	
 	}
 	
+	/**
+	 * Plots the projectile flight path using dots
+	 *
+	 * @param g Graphics
+	 */
 	public void rocketFlight(Graphics g){
 		
 		double x;
 		double y;
 		
+		// plot trajectory once per second of flight time
 		for(int i = 0; i <= time; i++) {
 			x = 50 + xvel * i;
 			y = 495 - yvel * i - 0.5 * (-9.8) * Math.pow(i, 2);
@@ -76,23 +101,40 @@ public class PMSimDraw extends JPanel {
 		}				
 	}
 	
+	/**
+	 * Computes x and y velocities and total flight time
+	 * 
+	 * @param v Initial velocity
+	 * @param a Initial angle
+	 */
 	public void setFlightParameters(int v, int a){
 		
 		angle = a;
 		velocity = v;
+		// compute x and y velocities
 		xvel = velocity * Math.cos(Math.toRadians(angle));
 		yvel = velocity * Math.sin(Math.toRadians(angle));
+		// compute flight time
 		time = -yvel / (0.5 * -9.8);	
 	}
 	
+	/**
+	 * @return Total flight time
+	 */
 	public double getTime(){
 		return time;
 	}
 	
+	/**
+	 * @return Max altitude reached
+	 */
 	public double getAltitude(){
 		return (yvel * time) / 2;
 	}
 	
+	/**
+	 * @return Total distance traveled
+	 */
 	public double getDist(){
 		return xvel * time;
 	}
